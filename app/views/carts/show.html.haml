@@ -1,0 +1,10 @@
+- if notice 
+  %aside#notice=notice
+%h2 Your Pragmatic Cart
+
+- @cart.line_items.each do |item| 
+  %ul
+    %li 
+      = item.quantity 
+      ="×"
+      =item.product.title
