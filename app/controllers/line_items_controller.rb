@@ -33,6 +33,7 @@ class LineItemsController < ApplicationController
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to store_index_url }
+        format.js {@current_item=@line_item}
         format.json { render :show, status: :created, location: @line_item }
       else
         format.html { render :new }
@@ -44,12 +45,17 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
+    @lineitem = LineItem.find(params[:id])
+    @line_item.quantity-=1 if @line_item.quantity>0
+    @line_item.destroy if @line_item.quantity==0
     respond_to do |format|
-      if @line_item.update(line_item_params)
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @line_item }
+      if @line_item.save || @line_item.destroy
+        format.html { redirect_to store_index_url }
+        format.js {}
+        format.json { render :show, status: :created, location: @line_item }
       else
-        format.html { render :edit }
+        format.html { redirect_to store_index_url}
+        format.js {}
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -60,7 +66,7 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to line_items_url, notice: 'Line item was successfully destroyed.' }
+      format.html { redirect_to store_index_url }
       format.json { head :no_content }
     end
   end
