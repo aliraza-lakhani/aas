@@ -45,19 +45,16 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    @lineitem = LineItem.find(params[:id])
-    @line_item.quantity-=1 if @line_item.quantity>0
+    # @lineitem = LineItem.find(params[:id])
+    if @line_item.quantity>0
+      @line_item.quantity-=1 
+      @line_item.save
+    end
     @line_item.destroy if @line_item.quantity==0
     respond_to do |format|
-      if @line_item.save || @line_item.destroy
         format.html { redirect_to store_index_url }
-        format.js {}
+        format.js {@current_item = @line_item}
         format.json { render :show, status: :created, location: @line_item }
-      else
-        format.html { redirect_to store_index_url}
-        format.js {}
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
-      end
     end
   end
 
