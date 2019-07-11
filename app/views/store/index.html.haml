@@ -1,6 +1,6 @@
 - if notice
   %aside#notice= notice
-%h1 Your Pragmatic Catalog 
+%h1 Your Pragmatic Catalog #{@cart.id} 
 %ul.catalog
   =render @products || "There are no products available."
          

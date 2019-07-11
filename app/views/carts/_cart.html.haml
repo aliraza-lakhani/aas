@@ -4,10 +4,10 @@
       %aside#notice_cart= notice
     %h2 Your Cart
     %table
-      =render cart.line_items
+      =render cart.line_items.order(:created_at)
       %tfoot
         %tr
-          %th{:colspan => "2"} Total:
+          %th{:colspan => "3"} Total:
           %td.price= number_to_currency(cart.total_price,unit:"Rs ",precision: 2)
     .actions
       %table  
