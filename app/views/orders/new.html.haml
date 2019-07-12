@@ -1,0 +1,6 @@
+%section.depot_form
+	%h1 Please Enter Your Details
+	= render 'form', order: @order
+	= link_to 'Back', orders_path
+
+= javascript_pack_tag("pay_type")

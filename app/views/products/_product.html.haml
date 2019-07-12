@@ -1,0 +1,14 @@
+="Product Id :#{product.id}"
+%li
+  = image_tag(product.image_url)
+  %h2=product.title
+  %p
+    = sanitize(product.description)
+  .price
+    = number_to_currency(product.price,unit:"Rs ",precision: 2)
+    = button_to 'Add to Cart', line_items_path(product_id: product),remote:true
+    -# - if @line_items.any?
+    -#   - @line_items.each do |item|
+    -#     - if item.product_id == product.id
+    -#       - if item.quantity>=1
+    -#         =button_to 'Remove from Cart', line_items_path(product_id: product)
