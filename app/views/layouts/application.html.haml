@@ -10,14 +10,9 @@
       'data-turbolinks-track': 'reload'     
   %body
     %header.main
-      = image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf'
-      %h1= @page_title
-    %section.content
-      %nav.side_nav
-        %div#cart.carts
-          - if !@cart.line_items.empty? && params[:controller]!="carts"
-            =render @cart
-        %ul
+      %nav
+        = image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf'
+        %ul.nav.navbar-nav.navbar-right
           %li
             %a{:href => "/"} Home
           %li
@@ -25,7 +20,36 @@
           %li
             %a{:href => "/news"} News
           %li
-            %a{:href => "/contact"} Contact
+            %a{:href => "/contact"} Contact 
+          - if logged_in?
+            %li= link_to "Users", users_path
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                =current_user.name
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to 'Orders',orders_path
+                %li= link_to 'Products', products_path 
+                %li.divider
+                %li= button_to "Log out", logout_path , method: :delete
+          - else
+            %li= link_to "Log in", login_path
+      %h1= @page_title
+
+    %section.content
+      %nav.side_nav
+        %div#cart.carts
+          - if @cart && !@cart.line_items.empty? && params[:controller]!="carts"
+            =render @cart
+        -# %ul
+        -#   %li
+        -#     %a{:href => "/"} Home
+        -#   %li
+        -#     %a{:href => "/questions"} Questions
+        -#   %li
+        -#     %a{:href => "/news"} News
+        -#   %li
+        -#     %a{:href => "/contact"} Contact
       %main{:class => "#{controller.controller_name}"}
         = yield
         = console

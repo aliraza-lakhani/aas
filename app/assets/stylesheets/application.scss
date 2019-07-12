@@ -15,7 +15,8 @@
  *= require_tree .
  *= require_self
  */
-
+@import "bootstrap-sprockets";
+@import "bootstrap";
 body {
   margin: 0;
   padding: 0;
@@ -25,7 +26,7 @@ header.main {
   @media (min-width: 30em) {
     text-align: left; // left align on desktop
   }
-  background: #282;
+  background: #ffb;
   margin: 0;
   h1 {
     display: none;
@@ -34,7 +35,7 @@ header.main {
 .content {
   margin: 0;
   padding: 0;
-
+  
   display: flex;
   display: -webkit-flex;
   flex-direction: column; // mobile is horizontally laid out
@@ -66,12 +67,13 @@ header.main {
         padding: 0.5em;
         text-transform: uppercase;
         letter-spacing: 0.354em;
+        background-color:#ffb;
         a {
-          color: #bfb;
+          background-color: rgb(255, 255, 255) ;
           text-decoration: none;
         }
         a:hover {
-          background: none;
+          background: #ffb;
           color: white;
         }
       }
